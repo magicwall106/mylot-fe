@@ -1,0 +1,76 @@
+<div>
+    <h2>Recommendations</h2>
+    <jhi-alert></jhi-alert>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xs-4 no-padding-left">
+                <button class="btn btn-primary" ui-sref="recommendation.new" >
+                    <span class="glyphicon glyphicon-plus"></span>
+                    <span >
+                        Create new Recommendation
+                    </span>
+                </button>
+            </div>
+        </div>
+    </div>
+    <br/>
+    <div class="table-responsive">
+        <table class="jh-table table table-striped">
+            <thead>
+                <tr jh-sort="vm.predicate" ascending="vm.reverse" callback="vm.reset()">
+                    <th jh-sort-by="id"><span>ID</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="condition"><span>Condition</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="num1"><span>Num 1</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="num2"><span>Num 2</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="num3"><span>Num 3</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="num4"><span>Num 4</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="num5"><span>Num 5</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="num6"><span>Num 6</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="createdAt"><span>Created At</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="updatedAt"><span>Updated At</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="userId"><span>User</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody infinite-scroll="vm.loadPage(vm.page + 1)" infinite-scroll-disabled="vm.page >= vm.links['last']">
+                <tr ng-repeat="recommendation in vm.recommendations track by recommendation.id">
+                    <td><a ui-sref="recommendation-detail({id:recommendation.id})">{{recommendation.id}}</a></td>
+                    <td>{{recommendation.condition}}</td>
+                    <td>{{recommendation.num1}}</td>
+                    <td>{{recommendation.num2}}</td>
+                    <td>{{recommendation.num3}}</td>
+                    <td>{{recommendation.num4}}</td>
+                    <td>{{recommendation.num5}}</td>
+                    <td>{{recommendation.num6}}</td>
+                    <td>{{recommendation.createdAt | date:'medium'}}</td>
+                    <td>{{recommendation.updatedAt | date:'medium'}}</td>
+                    <td>
+                        {{recommendation.userId}}
+                    </td>
+                    <td class="text-right">
+                        <div class="btn-group flex-btn-group-container">
+                            <button type="submit"
+                                    ui-sref="recommendation-detail({id:recommendation.id})"
+                                    class="btn btn-info btn-sm">
+                                <span class="glyphicon glyphicon-eye-open"></span>
+                                <span class="hidden-xs hidden-sm"></span>
+                            </button>
+                            <button type="submit"
+                                    ui-sref="recommendation.edit({id:recommendation.id})"
+                                    class="btn btn-primary btn-sm">
+                                <span class="glyphicon glyphicon-pencil"></span>
+                                <span class="hidden-xs hidden-sm"></span>
+                            </button>
+                            <button type="submit"
+                                    ui-sref="recommendation.delete({id:recommendation.id})"
+                                    class="btn btn-danger btn-sm">
+                                <span class="glyphicon glyphicon-remove-circle"></span>
+                                <span class="hidden-xs hidden-sm"></span>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

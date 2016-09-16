@@ -1,0 +1,59 @@
+
+<div>
+    <h2><span>Lottery</span> {{vm.lottery.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="dl-horizontal jh-entity-details">
+        <dt><span>Status</span></dt>
+        <dd>
+            <span>{{vm.lottery.status}}</span>
+        </dd>
+        <dt><span>Num 1</span></dt>
+        <dd>
+            <span>{{vm.lottery.num1}}</span>
+        </dd>
+        <dt><span>Num 2</span></dt>
+        <dd>
+            <span>{{vm.lottery.num2}}</span>
+        </dd>
+        <dt><span>Num 3</span></dt>
+        <dd>
+            <span>{{vm.lottery.num3}}</span>
+        </dd>
+        <dt><span>Num 4</span></dt>
+        <dd>
+            <span>{{vm.lottery.num4}}</span>
+        </dd>
+        <dt><span>Num 5</span></dt>
+        <dd>
+            <span>{{vm.lottery.num5}}</span>
+        </dd>
+        <dt><span>Num 6</span></dt>
+        <dd>
+            <span>{{vm.lottery.num6}}</span>
+        </dd>
+        <dt><span>Created At</span></dt>
+        <dd>
+            <span>{{vm.lottery.createdAt | date:'medium'}}</span>
+        </dd>
+        <dt><span>Updated At</span></dt>
+        <dd>
+            <span>{{vm.lottery.updatedAt | date:'medium'}}</span>
+        </dd>
+        <dt><span>User</span></dt>
+        <dd>
+            {{vm.lottery.userId}}
+        </dd>
+    </dl>
+
+    <button type="submit"
+            ui-sref="{{ vm.previousState }}"
+            class="btn btn-info">
+        <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span> Back</span>
+    </button>
+
+    <button type="button" ui-sref="lottery-detail.edit({id:vm.lottery.id})" class="btn btn-primary">
+        <span class="glyphicon glyphicon-pencil"></span>
+        <span class="hidden-xs hidden-sm"> Edit</span>
+    </button>
+</div>

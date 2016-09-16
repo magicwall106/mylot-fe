@@ -1,0 +1,75 @@
+
+<div>
+    <h2><span>Result Vietlot</span> {{vm.resultVietlot.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="dl-horizontal jh-entity-details">
+        <dt><span>Code</span></dt>
+        <dd>
+            <span>{{vm.resultVietlot.code}}</span>
+        </dd>
+        <dt><span>Result Date</span></dt>
+        <dd>
+            <span>{{vm.resultVietlot.resultDate | date:'medium'}}</span>
+        </dd>
+        <dt><span>Num 1</span></dt>
+        <dd>
+            <span>{{vm.resultVietlot.num1}}</span>
+        </dd>
+        <dt><span>Num 2</span></dt>
+        <dd>
+            <span>{{vm.resultVietlot.num2}}</span>
+        </dd>
+        <dt><span>Num 3</span></dt>
+        <dd>
+            <span>{{vm.resultVietlot.num3}}</span>
+        </dd>
+        <dt><span>Num 4</span></dt>
+        <dd>
+            <span>{{vm.resultVietlot.num4}}</span>
+        </dd>
+        <dt><span>Num 5</span></dt>
+        <dd>
+            <span>{{vm.resultVietlot.num5}}</span>
+        </dd>
+        <dt><span>Num 6</span></dt>
+        <dd>
+            <span>{{vm.resultVietlot.num6}}</span>
+        </dd>
+        <dt><span>Award 1</span></dt>
+        <dd>
+            <span>{{vm.resultVietlot.award1}}</span>
+        </dd>
+        <dt><span>Award 2</span></dt>
+        <dd>
+            <span>{{vm.resultVietlot.award2}}</span>
+        </dd>
+        <dt><span>Award 3</span></dt>
+        <dd>
+            <span>{{vm.resultVietlot.award3}}</span>
+        </dd>
+        <dt><span>Award 4</span></dt>
+        <dd>
+            <span>{{vm.resultVietlot.award4}}</span>
+        </dd>
+        <dt><span>Created At</span></dt>
+        <dd>
+            <span>{{vm.resultVietlot.createdAt | date:'medium'}}</span>
+        </dd>
+        <dt><span>Updated At</span></dt>
+        <dd>
+            <span>{{vm.resultVietlot.updatedAt | date:'medium'}}</span>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            ui-sref="{{ vm.previousState }}"
+            class="btn btn-info">
+        <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span> Back</span>
+    </button>
+
+    <button type="button" ui-sref="result-vietlot-detail.edit({id:vm.resultVietlot.id})" class="btn btn-primary">
+        <span class="glyphicon glyphicon-pencil"></span>
+        <span class="hidden-xs hidden-sm"> Edit</span>
+    </button>
+</div>

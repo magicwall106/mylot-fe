@@ -1,0 +1,59 @@
+
+<div>
+    <h2><span>Recommendation</span> {{vm.recommendation.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="dl-horizontal jh-entity-details">
+        <dt><span>Condition</span></dt>
+        <dd>
+            <span>{{vm.recommendation.condition}}</span>
+        </dd>
+        <dt><span>Num 1</span></dt>
+        <dd>
+            <span>{{vm.recommendation.num1}}</span>
+        </dd>
+        <dt><span>Num 2</span></dt>
+        <dd>
+            <span>{{vm.recommendation.num2}}</span>
+        </dd>
+        <dt><span>Num 3</span></dt>
+        <dd>
+            <span>{{vm.recommendation.num3}}</span>
+        </dd>
+        <dt><span>Num 4</span></dt>
+        <dd>
+            <span>{{vm.recommendation.num4}}</span>
+        </dd>
+        <dt><span>Num 5</span></dt>
+        <dd>
+            <span>{{vm.recommendation.num5}}</span>
+        </dd>
+        <dt><span>Num 6</span></dt>
+        <dd>
+            <span>{{vm.recommendation.num6}}</span>
+        </dd>
+        <dt><span>Created At</span></dt>
+        <dd>
+            <span>{{vm.recommendation.createdAt | date:'medium'}}</span>
+        </dd>
+        <dt><span>Updated At</span></dt>
+        <dd>
+            <span>{{vm.recommendation.updatedAt | date:'medium'}}</span>
+        </dd>
+        <dt><span>User</span></dt>
+        <dd>
+            {{vm.recommendation.userId}}
+        </dd>
+    </dl>
+
+    <button type="submit"
+            ui-sref="{{ vm.previousState }}"
+            class="btn btn-info">
+        <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span> Back</span>
+    </button>
+
+    <button type="button" ui-sref="recommendation-detail.edit({id:vm.recommendation.id})" class="btn btn-primary">
+        <span class="glyphicon glyphicon-pencil"></span>
+        <span class="hidden-xs hidden-sm"> Edit</span>
+    </button>
+</div>

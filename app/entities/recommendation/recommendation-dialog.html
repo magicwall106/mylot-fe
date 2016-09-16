@@ -1,0 +1,98 @@
+
+<form name="editForm" role="form" novalidate ng-submit="vm.save()">
+
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                ng-click="vm.clear()">&times;</button>
+        <h4 class="modal-title" id="myRecommendationLabel">Create or edit a Recommendation</h4>
+    </div>
+    <div class="modal-body">
+        <jhi-alert-error></jhi-alert-error>
+        <div class="form-group" ng-show="vm.recommendation.id">
+            <label for="id">ID</label>
+            <input type="text" class="form-control" id="id" name="id"
+                    ng-model="vm.recommendation.id" readonly />
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="field_condition">Condition</label>
+            <select class="form-control" name="condition" ng-model="vm.recommendation.condition" id="field_condition">
+                <option value="Emotion">Emotion</option>
+                <option value="HighestRate">HighestRate</option>
+                <option value="LowestRate">LowestRate</option>
+                <option value="MostPopular">MostPopular</option>
+                <option value="LeastPopular">LeastPopular</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="field_num1">Num 1</label>
+            <input type="number" class="form-control" name="num1" id="field_num1"
+                    ng-model="vm.recommendation.num1"
+                     />
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="field_num2">Num 2</label>
+            <input type="number" class="form-control" name="num2" id="field_num2"
+                    ng-model="vm.recommendation.num2"
+                     />
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="field_num3">Num 3</label>
+            <input type="number" class="form-control" name="num3" id="field_num3"
+                    ng-model="vm.recommendation.num3"
+                     />
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="field_num4">Num 4</label>
+            <input type="number" class="form-control" name="num4" id="field_num4"
+                    ng-model="vm.recommendation.num4"
+                     />
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="field_num5">Num 5</label>
+            <input type="number" class="form-control" name="num5" id="field_num5"
+                    ng-model="vm.recommendation.num5"
+                     />
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="field_num6">Num 6</label>
+            <input type="number" class="form-control" name="num6" id="field_num6"
+                    ng-model="vm.recommendation.num6"
+                     />
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="field_createdAt">Created At</label>
+                <div class="input-group">
+                    <input id="field_createdAt" type="text" class="form-control" name="createdAt" datetime-picker="{{dateformat}}" ng-model="vm.recommendation.createdAt" is-open="vm.datePickerOpenStatus.createdAt"
+                      />
+                    <span class="input-group-btn">
+                        <button type="button" class="btn btn-default" ng-click="vm.openCalendar('createdAt')"><i class="glyphicon glyphicon-calendar"></i></button>
+                    </span>
+                </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="field_updatedAt">Updated At</label>
+                <div class="input-group">
+                    <input id="field_updatedAt" type="text" class="form-control" name="updatedAt" datetime-picker="{{dateformat}}" ng-model="vm.recommendation.updatedAt" is-open="vm.datePickerOpenStatus.updatedAt"
+                      />
+                    <span class="input-group-btn">
+                        <button type="button" class="btn btn-default" ng-click="vm.openCalendar('updatedAt')"><i class="glyphicon glyphicon-calendar"></i></button>
+                    </span>
+                </div>
+        </div>
+
+        <div class="form-group">
+            <label for="field_user">User</label>
+            <select class="form-control" id="field_user" name="user" ng-model="vm.recommendation.userId" ng-options="user.id as user.id for user in vm.users"            >
+                <option value=""></option>
+            </select>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="vm.clear()">
+            <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span>Cancel</span>
+        </button>
+        <button type="submit" ng-disabled="editForm.$invalid || vm.isSaving" class="btn btn-primary">
+            <span class="glyphicon glyphicon-save"></span>&nbsp;<span>Save</span>
+        </button>
+    </div>
+</form>

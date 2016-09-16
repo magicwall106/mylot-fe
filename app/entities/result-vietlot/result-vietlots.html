@@ -1,0 +1,86 @@
+<div>
+    <h2>Result Vietlots</h2>
+    <jhi-alert></jhi-alert>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xs-4 no-padding-left">
+                <button class="btn btn-primary" ui-sref="result-vietlot.new" >
+                    <span class="glyphicon glyphicon-plus"></span>
+                    <span >
+                        Create new Result Vietlot
+                    </span>
+                </button>
+            </div>
+        </div>
+    </div>
+    <br/>
+    <div class="table-responsive">
+        <table class="jh-table table table-striped">
+            <thead>
+                <tr jh-sort="vm.predicate" ascending="vm.reverse" callback="vm.transition()">
+                    <th jh-sort-by="id"><span>ID</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="code"><span>Code</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="resultDate"><span>Result Date</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="num1"><span>Num 1</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="num2"><span>Num 2</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="num3"><span>Num 3</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="num4"><span>Num 4</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="num5"><span>Num 5</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="num6"><span>Num 6</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="award1"><span>Award 1</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="award2"><span>Award 2</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="award3"><span>Award 3</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="award4"><span>Award 4</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="createdAt"><span>Created At</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="updatedAt"><span>Updated At</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="resultVietlot in vm.resultVietlots track by resultVietlot.id">
+                    <td><a ui-sref="result-vietlot-detail({id:resultVietlot.id})">{{resultVietlot.id}}</a></td>
+                    <td>{{resultVietlot.code}}</td>
+                    <td>{{resultVietlot.resultDate | date:'medium'}}</td>
+                    <td>{{resultVietlot.num1}}</td>
+                    <td>{{resultVietlot.num2}}</td>
+                    <td>{{resultVietlot.num3}}</td>
+                    <td>{{resultVietlot.num4}}</td>
+                    <td>{{resultVietlot.num5}}</td>
+                    <td>{{resultVietlot.num6}}</td>
+                    <td>{{resultVietlot.award1}}</td>
+                    <td>{{resultVietlot.award2}}</td>
+                    <td>{{resultVietlot.award3}}</td>
+                    <td>{{resultVietlot.award4}}</td>
+                    <td>{{resultVietlot.createdAt | date:'medium'}}</td>
+                    <td>{{resultVietlot.updatedAt | date:'medium'}}</td>
+                    <td class="text-right">
+                        <div class="btn-group flex-btn-group-container">
+                            <button type="submit"
+                                    ui-sref="result-vietlot-detail({id:resultVietlot.id})"
+                                    class="btn btn-info btn-sm">
+                                <span class="glyphicon glyphicon-eye-open"></span>
+                                <span class="hidden-xs hidden-sm"></span>
+                            </button>
+                            <button type="submit"
+                                    ui-sref="result-vietlot.edit({id:resultVietlot.id})"
+                                    class="btn btn-primary btn-sm">
+                                <span class="glyphicon glyphicon-pencil"></span>
+                                <span class="hidden-xs hidden-sm"></span>
+                            </button>
+                            <button type="submit"
+                                    ui-sref="result-vietlot.delete({id:resultVietlot.id})"
+                                    class="btn btn-danger btn-sm">
+                                <span class="glyphicon glyphicon-remove-circle"></span>
+                                <span class="hidden-xs hidden-sm"></span>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="text-center">
+        <jhi-item-count page="vm.page" total="vm.queryCount" items-per-page="vm.itemsPerPage"></jhi-item-count>
+        <uib-pagination class="pagination-sm" total-items="vm.totalItems" ng-model="vm.page" ng-change="vm.transition()"></uib-pagination>
+    </div>
+</div>
