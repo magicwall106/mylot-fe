@@ -14,7 +14,7 @@
         $httpProvider.defaults.xsrfHeaderName = 'X-CSRF-TOKEN';
         
         //Cache everything except rest api requests
-        httpRequestInterceptorCacheBusterProvider.setMatchlist([/.*api.*/, /.*protected.*/], true);
+        httpRequestInterceptorCacheBusterProvider.setMatchlist([ /.*protected.*/], true);
 
         $urlRouterProvider.otherwise('/');
 

@@ -28,11 +28,10 @@
         }
 
         function login (credentials) {
-            var data = 'j_username=' + encodeURIComponent(credentials.username) +
-                '&j_password=' + encodeURIComponent(credentials.password) +
-                '&remember-me=' + credentials.rememberMe + '&submit=Login';
+            var data = 'email=' + encodeURIComponent(credentials.username) +
+                '&password=' + encodeURIComponent(credentials.password);
 
-            return $http.post('api/authentication', data, {
+            return $http.post('http://mylot-expressapp.rhcloud.com/api/login', data, {
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded'
                 }
