@@ -5,9 +5,9 @@
         .module('newlotApp')
         .factory('AuthServerProvider', AuthServerProvider);
 
-    AuthServerProvider.$inject = ['$http', '$localStorage' ];
+    AuthServerProvider.$inject = ['$http', '$localStorage', 'SERVER_BACKEND' ];
 
-    function AuthServerProvider ($http, $localStorage ) {
+    function AuthServerProvider ($http, $localStorage, SERVER_BACKEND ) {
         var service = {
             getToken: getToken,
             hasValidToken: hasValidToken,
@@ -31,7 +31,7 @@
             var data = 'email=' + encodeURIComponent(credentials.username) +
                 '&password=' + encodeURIComponent(credentials.password);
 
-            return $http.post('http://mylot-expressapp.rhcloud.com/api/login', data, {
+            return $http.post(SERVER_BACKEND + 'api/login', data, {
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded'
                 }
