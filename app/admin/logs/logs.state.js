@@ -12,7 +12,7 @@
             parent: 'admin',
             url: '/logs',
             data: {
-                authorities: ['ROLE_ADMIN'],
+                authorities: ['admin'],
                 pageTitle: 'Logs'
             },
             views: {

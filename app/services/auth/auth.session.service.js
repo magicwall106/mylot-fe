@@ -35,8 +35,10 @@
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded'
                 }
-            }).success(function (response) {
+            }).success(function (response, status, headers, config) {
                 return response;
+            }).error(function (data, status, header, config) {
+                return data;
             });
         }
 

@@ -13,7 +13,7 @@
             parent: 'entity',
             url: '/recommendation',
             data: {
-                authorities: ['ROLE_USER'],
+                authorities: ['user'],
                 pageTitle: 'Recommendations'
             },
             views: {
@@ -30,7 +30,7 @@
             parent: 'entity',
             url: '/recommendation/{id}',
             data: {
-                authorities: ['ROLE_USER'],
+                authorities: ['user'],
                 pageTitle: 'Recommendation'
             },
             views: {
@@ -58,7 +58,7 @@
             parent: 'recommendation-detail',
             url: '/detail/edit',
             data: {
-                authorities: ['ROLE_USER']
+                authorities: ['user']
             },
             onEnter: ['$stateParams', '$state', '$uibModal', function($stateParams, $state, $uibModal) {
                 $uibModal.open({
@@ -83,7 +83,7 @@
             parent: 'recommendation',
             url: '/new',
             data: {
-                authorities: ['ROLE_USER']
+                authorities: ['user']
             },
             onEnter: ['$stateParams', '$state', '$uibModal', function($stateParams, $state, $uibModal) {
                 $uibModal.open({
@@ -119,7 +119,7 @@
             parent: 'recommendation',
             url: '/{id}/edit',
             data: {
-                authorities: ['ROLE_USER']
+                authorities: ['user']
             },
             onEnter: ['$stateParams', '$state', '$uibModal', function($stateParams, $state, $uibModal) {
                 $uibModal.open({
@@ -144,7 +144,7 @@
             parent: 'recommendation',
             url: '/{id}/delete',
             data: {
-                authorities: ['ROLE_USER']
+                authorities: ['user']
             },
             onEnter: ['$stateParams', '$state', '$uibModal', function($stateParams, $state, $uibModal) {
                 $uibModal.open({

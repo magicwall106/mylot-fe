@@ -20,5 +20,16 @@
         });
 
         return service;
+
+        /*function get(){
+            $http.get(SERVER_BACKEND + 'api/account/profile', {
+            }).then(function (response, status, headers, config) {
+                return response;
+            }, function (data, status, header, config) {
+                return data;
+            }).catch(function(err){
+                return err;
+            }); 
+        }*/
     }
 })();

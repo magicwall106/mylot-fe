@@ -112,7 +112,7 @@
                 }.bind(this));
 
             function loginThen (data) {
-                Principal.identity(true).then(function(account) {
+                Principal.identity(true,data).then(function(data) {
                     deferred.resolve(data);
                 });
                 return cb();

@@ -28,12 +28,12 @@
         }
 
         function hasAnyAuthority (authorities) {
-            if (!_authenticated || !_identity || !_identity.authorities) {
+            if (!_authenticated || !_identity || !_identity.role) {
                 return false;
             }
 
             for (var i = 0; i < authorities.length; i++) {
-                if (_identity.authorities.indexOf(authorities[i]) !== -1) {
+                if (_identity.role.indexOf(authorities[i]) !== -1) {
                     return true;
                 }
             }
@@ -53,13 +53,24 @@
             });
         }
 
-        function identity (force) {
+        function identity (force, data) {
             var deferred = $q.defer();
 
             if (force === true) {
                 _identity = undefined;
             }
 
+            if(angular.isDefined(data)){
+                 _identity = data.data;
+                _authenticated = true;
+                deferred.resolve(_identity);
+            }
+            if(!angular.isDefined(data) && (_identity == null))
+            {
+                _identity = null;
+                _authenticated = false;
+                deferred.resolve(_identity);
+            }
             // check and see if we have retrieved the identity data from the server.
             // if we have, reuse it by immediately resolving
             if (angular.isDefined(_identity)) {
@@ -68,16 +79,15 @@
                 return deferred.promise;
             }
 
-            // retrieve the identity data from the server, update the identity object, and then resolve.
-            Account.get().$promise
-                .then(getAccountThen)
-                .catch(getAccountCatch);
-
             return deferred.promise;
 
             function getAccountThen (account) {
-                _identity = account.data;
-                _authenticated = true;
+                if(account.status === 203){
+                    getAccountCatch();
+                } else{  
+                    _identity = account.data;
+                    _authenticated = true;
+                }
                 deferred.resolve(_identity);
             }
 
