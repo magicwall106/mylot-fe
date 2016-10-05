@@ -12,6 +12,7 @@
         //enable CSRF
         //$httpProvider.defaults.xsrfCookieName = 'CSRF-TOKEN';
         //$httpProvider.defaults.xsrfHeaderName = 'X-CSRF-TOKEN';
+        $httpProvider.defaults.withCredentials = true;
         
         //Cache everything except rest api requests
         httpRequestInterceptorCacheBusterProvider.setMatchlist([ /.*protected.*/], true);

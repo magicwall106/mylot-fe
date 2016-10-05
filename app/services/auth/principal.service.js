@@ -55,21 +55,8 @@
 
         function identity (force, data) {
             var deferred = $q.defer();
-
             if (force === true) {
                 _identity = undefined;
-            }
-
-            if(angular.isDefined(data)){
-                 _identity = data.data;
-                _authenticated = true;
-                deferred.resolve(_identity);
-            }
-            if(!angular.isDefined(data) && (_identity == null))
-            {
-                _identity = null;
-                _authenticated = false;
-                deferred.resolve(_identity);
             }
             // check and see if we have retrieved the identity data from the server.
             // if we have, reuse it by immediately resolving
@@ -78,6 +65,9 @@
 
                 return deferred.promise;
             }
+            Account.get().$promise
+                .then(getAccountThen)
+                .catch(getAccountCatch);
 
             return deferred.promise;
 

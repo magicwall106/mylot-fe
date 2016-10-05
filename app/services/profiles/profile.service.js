@@ -5,9 +5,9 @@
         .module('newlotApp')
         .factory('ProfileService', ProfileService);
 
-    ProfileService.$inject = ['$q', '$http'];
+    ProfileService.$inject = ['$q', '$http', 'SERVER_BACKEND'];
 
-    function ProfileService($q, $http) {
+    function ProfileService($q, $http, SERVER_BACKEND) {
 
         var dataPromise;
 
@@ -19,7 +19,7 @@
 
         function getProfileInfo() {
             if (angular.isUndefined(dataPromise)) {
-                dataPromise = $http.get('api/profile-info').then(function(result) {
+                dataPromise = $http.get(SERVER_BACKEND+'api/account/profile').then(function(result) {
                     if (result.data.activeProfiles) {
                         var response = {};
                         response.activeProfiles = result.data.activeProfiles;
