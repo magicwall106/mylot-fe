@@ -12,7 +12,9 @@
                 <span>Newlot</span> <span class="navbar-version">v{{VERSION}}</span>
             </a>
         </div>
-        <div class="navbar-collapse" uib-collapse="vm.isNavbarCollapsed" ng-switch="true">
+
+        <!-- http://bootsnipp.com/snippets/featured/nav-sidebar-with-toggle-button -->
+        <div class="navbar-collapse" uib-collapse="vm.isNavbarCollapsed" horizontal ng-switch="true">
             <ul class="nav navbar-nav navbar-right">
                 <li ui-sref-active="active">
                     <a ui-sref="home" ng-click="vm.collapseNavbar()">

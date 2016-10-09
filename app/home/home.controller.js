@@ -19,6 +19,11 @@
         vm.pageChanged = pageChanged;
         vm.endTime = 1483203600000;  //get from server 
         vm.processValue = getProcessValue;
+        vm.tabs = [
+            { icon:'glyphicon glyphicon-thumbs-up', content: [{num:'1',rate:'22'},{num:'2',rate:'2'}] },
+            { icon:'glyphicon glyphicon-thumbs-down', content: [{num:'1',rate:'11'},{num:'2',rate:'33'}], disabled: false }
+        ];
+
         $scope.$on('authenticationSuccess', function() {
             getAccount();
         });

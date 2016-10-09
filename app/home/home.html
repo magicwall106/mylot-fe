@@ -1,9 +1,29 @@
 <div ng-cloak>
     <div class="row">
-        <div class="col-md-3">
-            <span class="hipster img-responsive img-rounded"></span>
+        <div class="col-md-2">
+            <uib-tabset active="active">
+                <uib-tab index="$index + 1" ng-repeat="tab in vm.tabs" heading="{{tab.title}}" disable="tab.disabled">
+                    <uib-tab-heading>
+                        <i class="{{tab.icon}}"></i>
+                    </uib-tab-heading>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Số</th>
+                                <th>%</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="line in tab.content">
+                                <td>{{line.num}}</td>
+                                <td>{{line.rate}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </uib-tab>
+            </uib-tabset>
         </div>
-        <div class="col-md-9">
+        <div class="col-md-10">
             <div>
                 <p>Kỳ #00028</p>
                 <p>Thứ 4 21/09/2016</p>
@@ -21,7 +41,7 @@
             <div>
                 <timer end-time="vm.endTime">{{days}} days, {{hours}} hours, {{minutes}} minutes, {{seconds}} seconds.
                     <uib-progressbar class="progress progress-striped active" type="info" value="vm.processValue()">
-                        </uib-progressbar>
+                    </uib-progressbar>
                 </timer>
             </div>
 
