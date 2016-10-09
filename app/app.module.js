@@ -7,6 +7,7 @@
             'ngResource',
             'ngCookies',
             'ngAria',
+            'timer',
             'ngCacheBuster',
             'ngFileUpload',
             'ui.bootstrap',
