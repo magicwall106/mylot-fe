@@ -1,19 +1,32 @@
-(function() {
+(function () {
     'use strict';
 
     angular
         .module('newlotApp')
         .controller('SettingsController', SettingsController);
 
-    SettingsController.$inject = ['Principal', 'Auth'];
+    SettingsController.$inject = ['Principal', 'Auth', '$filter'];
 
-    function SettingsController (Principal, Auth) {
+    function SettingsController(Principal, Auth, $filter) {
         var vm = this;
 
         vm.error = null;
         vm.save = save;
         vm.settingsAccount = null;
         vm.success = null;
+        vm.popup1 = {
+            opened: false
+        };
+        vm.openDobPicker = function () {
+            vm.popup1.opened = true;
+        };
+        vm.dateOptions = {
+            dateDisabled: 'disabled',
+            formatYear: 'yy',
+            maxDate: new Date(),
+            minDate: new Date(1900, 6, 10),
+            startingDay: 1
+        };
 
         /**
          * Store the "settings account" in a separate variable, and not in the shared "account" variable.
@@ -22,25 +35,26 @@
             return {
                 activated: account.activated,
                 email: account.email,
-                firstName: account.firstName,
-                langKey: account.langKey,
-                lastName: account.lastName,
-                login: account.login
+                profile: {
+                    firstname: account.profile.firstname,
+                    lastname: account.profile.lastname,
+                    dob: $filter('date')(account.profile.dob, "dd-MM-yyyy")
+                }
             };
         };
 
-        Principal.identity().then(function(account) {
+        Principal.identity().then(function (account) {
             vm.settingsAccount = copyAccount(account);
         });
 
-        function save () {
-            Auth.updateAccount(vm.settingsAccount).then(function() {
+        function save() {
+            Auth.updateAccount(vm.settingsAccount).then(function () {
                 vm.error = null;
                 vm.success = 'OK';
-                Principal.identity(true).then(function(account) {
+                Principal.identity(true).then(function (account) {
                     vm.settingsAccount = copyAccount(account);
                 });
-            }).catch(function() {
+            }).catch(function () {
                 vm.success = null;
                 vm.error = 'ERROR';
             });

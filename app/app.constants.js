@@ -5,5 +5,5 @@
         .module('newlotApp')
         .constant('VERSION', "0.0.1-SNAPSHOT")
         .constant('DEBUG_INFO_ENABLED', true)
-        .constant('SERVER_BACKEND', /*'http://localhost:3000/'*/'http://mylot-expressapp.rhcloud.com/');
+        .constant('SERVER_BACKEND', 'http://localhost:3000/'/*'http://mylot-expressapp.rhcloud.com/'*/);
 })();
