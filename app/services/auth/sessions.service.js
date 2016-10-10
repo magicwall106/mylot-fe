@@ -5,10 +5,10 @@
         .module('newlotApp')
         .factory('Sessions', Sessions);
 
-    Sessions.$inject = ['$resource'];
+    Sessions.$inject = ['$resource', 'SERVER_BACKEND'];
 
-    function Sessions ($resource) {
-        return $resource('api/account/sessions/:series', {}, {
+    function Sessions ($resource, SERVER_BACKEND) {
+        return $resource(SERVER_BACKEND + 'api/account/sessions/:series', {}, {
             'getAll': { method: 'GET', isArray: true}
         });
     }

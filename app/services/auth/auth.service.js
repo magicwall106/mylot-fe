@@ -76,10 +76,10 @@
             }
         }
 
-        function changePassword (newPassword, callback) {
+        function changePassword (newPassword, confirmPassword, callback) {
             var cb = callback || angular.noop;
-
-            return Password.save(newPassword, function () {
+            const param = {newPassword:newPassword, confirmPassword: confirmPassword};
+            return Password.save(param, function () {
                 return cb();
             }, function (err) {
                 return cb(err);
@@ -88,7 +88,7 @@
 
         function createAccount (account, callback) {
             var cb = callback || angular.noop;
-
+            
             return Register.save(account,
                 function () {
                     return cb(account);
@@ -111,8 +111,8 @@
                     return cb(err);
                 }.bind(this));
 
-            function loginThen (data) {
-                Principal.identity(true,data).then(function(data) {
+            function loginThen () {
+                Principal.identity(true).then(function(data) {
                     deferred.resolve(data);
                 });
                 return cb();

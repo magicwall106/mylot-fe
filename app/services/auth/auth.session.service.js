@@ -44,10 +44,10 @@
 
         function logout () {   
             // logout from the server
-            $http.get(SERVER_BACKEND+'api/logout').success(function (response) {
+            $http.get(SERVER_BACKEND + 'api/logout').success(function (response) {
                 delete $localStorage.authenticationToken;
                 // to get a new csrf token call the api
-                $http.get('api/account');
+                $http.get(SERVER_BACKEND + 'api/account/profile');
                 return response;
             });
             

@@ -5,10 +5,10 @@
         .module('newlotApp')
         .factory('PasswordResetInit', PasswordResetInit);
 
-    PasswordResetInit.$inject = ['$resource'];
+    PasswordResetInit.$inject = ['$resource', 'SERVER_BACKEND'];
 
-    function PasswordResetInit($resource) {
-        var service = $resource('api/account/reset_password/init', {}, {});
+    function PasswordResetInit($resource, SERVER_BACKEND) {
+        var service = $resource(SERVER_BACKEND + 'api/account/reset_password/init', {}, {});
 
         return service;
     }

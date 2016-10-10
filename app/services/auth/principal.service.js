@@ -53,7 +53,7 @@
             });
         }
 
-        function identity (force, data) {
+        function identity (force) {
             var deferred = $q.defer();
             if (force === true) {
                 _identity = undefined;
