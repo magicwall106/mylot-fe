@@ -5,9 +5,9 @@
         .module('newlotApp')
         .controller('LoginController', LoginController);
 
-    LoginController.$inject = ['$rootScope', '$state', '$timeout', 'Auth', '$uibModalInstance'];
+    LoginController.$inject = ['$rootScope', '$state', '$timeout', 'Auth', '$uibModalInstance', '$auth'];
 
-    function LoginController ($rootScope, $state, $timeout, Auth, $uibModalInstance) {
+    function LoginController ($rootScope, $state, $timeout, Auth, $uibModalInstance, $auth) {
         var vm = this;
 
         vm.authenticationError = false;
@@ -19,7 +19,7 @@
         vm.rememberMe = true;
         vm.requestResetPassword = requestResetPassword;
         vm.username = null;
-
+        vm.authenticate = authenticate;
         $timeout(function (){angular.element('#username').focus();});
 
         function cancel () {
@@ -68,6 +68,26 @@
         function requestResetPassword () {
             $uibModalInstance.dismiss('cancel');
             $state.go('requestReset');
+        }
+
+        function authenticate(provider) {
+            $auth.authenticate(provider)
+                .then(function (response) {
+                    console.log(response);
+                    //toastr.success('You have successfully signed in with ' + provider + '!');
+                    //$location.path('/');
+                })
+                .catch(function (error) {
+                    if (error.message) {
+                        // Satellizer promise reject error.
+                        toastr.error(error.message);
+                    } else if (error.data) {
+                        // HTTP response error from server
+                        toastr.error(error.data.message, error.status);
+                    } else {
+                        toastr.error(error);
+                    }
+                });
         }
     }
 })();

@@ -1,4 +1,4 @@
-(function() {
+(function () {
     'use strict';
 
     angular
@@ -8,7 +8,7 @@
     PasswordResetInit.$inject = ['$resource', 'SERVER_BACKEND'];
 
     function PasswordResetInit($resource, SERVER_BACKEND) {
-        var service = $resource(SERVER_BACKEND + 'api/account/reset_password/init', {}, {});
+        var service = $resource(SERVER_BACKEND + 'api/forgot', {}, {});
 
         return service;
     }
