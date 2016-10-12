@@ -1,40 +1,36 @@
 <div>
 	<div class="row">
 		<div class="col-md-8 col-md-offset-2">
-			<div class="page-header">
-				<h3>Contact Form</h3>
-			</div>
-			<div class="alert alert-success" ng-show="vm.success">
-				<strong>Settings saved!</strong>
-			</div>
+			<h2>Contact Form</h2>
 
+			<div class="alert alert-success" ng-show="vm.success">
+				<strong>Contact sent!</strong>
+			</div>
 			<jhi-alert-error></jhi-alert-error>
-			<form method="POST" class="form-horizontal" novalidate ng-submit="vm.submitContact()">
-				<input type="hidden" name="_csrf" />
+
+			<form name="form" role="form" novalidate ng-submit="vm.submitContact()" show-validation>
+
 				<div class="form-group">
-					<label for="name" class="col-sm-2 control-label">Name</label>
-					<div class="col-sm-8">
-						<input type="text" name="name" id="name" autofocus="autofocus" class="form-control" ng-model="vm.contact.name" placeholder="Your name"
-							ng-minlength=3 ng-maxlength=50 required/>
-					</div>
+					<label class="control-label" for="name">Name</label>
+					<input type="text" class="form-control" id="name" name="name" placeholder="Your name" ng-model="vm.contact.name" ng-minlength=2
+						ng-maxlength=50 required>
 					<div ng-show="form.name.$dirty && form.name.$invalid">
 						<p class="help-block" ng-show="form.name.$error.required">
-							Your Name is <strong>required</strong>.
+							Your name is required.
 						</p>
 						<p class="help-block" ng-show="form.name.$error.minlength">
-							Your Name is required to be <strong>at least 3 characters</strong>.
+							Your name is required to be at least 1 character.
 						</p>
 						<p class="help-block" ng-show="form.name.$error.maxlength">
-							Your Name cannot be <strong>longer than 50 characters</strong>.
+							Your name cannot be longer than 50 characters.
 						</p>
 					</div>
 				</div>
 				<div class="form-group">
-					<label class="col-sm-2 control-label" for="email">E-mail</label>
-                    <div class="col-sm-8">
+					<label class="control-label" for="email">E-mail</label>
 					<input type="email" class="form-control" id="email" name="email" placeholder="Your e-mail" ng-model="vm.contact.email" ng-minlength=5
-						ng-maxlength=100 required maxlength="100">
-                    </div>
+						ng-maxlength=100 required>
+
 					<div ng-show="form.email.$dirty && form.email.$invalid">
 						<p class="help-block" ng-show="form.email.$error.required">
 							Your e-mail is required.
@@ -52,28 +48,22 @@
 				</div>
 				<div class="form-group">
 					<label for="message" class="col-sm-2 control-label">Tin nhắn</label>
-					<div class="col-sm-8">
-						<textarea name="message" id="message" rows="7" class="form-control" ng-model="vm.contact.message" 
-                            ng-minlength=20 ng-maxlength=100></textarea>
-					</div>
+					<textarea name="message" id="message" rows="7" class="form-control" ng-model="vm.contact.message" ng-minlength=20 ng-maxlength=100></textarea>
 					<div ng-show="form.message.$dirty && form.message.$invalid">
 						<p class="help-block" ng-show="form.message.$error.required">
-							Your e-mail is required.
+							Your message is required.
 						</p>
 						<p class="help-block" ng-show="form.message.$error.minlength">
-							Your e-mail is required to be at least 20 characters.
+							Your message is required to be at least 20 characters.
 						</p>
 						<p class="help-block" ng-show="form.message.$error.maxlength">
-							Your e-mail cannot be longer than 100 characters.
+							Your message cannot be longer than 100 characters.
 						</p>
 					</div>
 				</div>
-				<div class="form-group">
-					<div class="col-sm-offset-2 col-sm-8">
-						<button type="submit" class="btn btn-primary"><i class="fa fa-envelope"></i>Send</button>
-					</div>
-				</div>
+				<button type="submit" ng-disabled="form.$invalid" class="btn btn-primary">Save</button>
 			</form>
 		</div>
 	</div>
+
 </div>
