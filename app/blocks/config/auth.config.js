@@ -23,8 +23,8 @@
             popupOptions: { width: 580, height: 400 }
         });
         //$authProvider.httpInterceptor = function() { return true; };
-        $authProvider.storageType = 'localStorage';
-        $authProvider.unlinkUrl = '/auth/unlink/';
+        //$authProvider.storageType = 'localStorage';
+        //$authProvider.unlinkUrl = '/auth/unlink/';
         
 
     }
