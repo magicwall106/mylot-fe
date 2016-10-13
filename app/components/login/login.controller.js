@@ -1,13 +1,13 @@
-(function() {
+(function () {
     'use strict';
 
     angular
         .module('newlotApp')
         .controller('LoginController', LoginController);
 
-    LoginController.$inject = ['$rootScope', '$state', '$timeout', 'Auth', '$uibModalInstance', '$auth'];
+    LoginController.$inject = ['$rootScope', '$state', '$timeout', 'Auth', '$uibModalInstance', '$auth', 'Social'];
 
-    function LoginController ($rootScope, $state, $timeout, Auth, $uibModalInstance, $auth) {
+    function LoginController($rootScope, $state, $timeout, Auth, $uibModalInstance, $auth, Social) {
         var vm = this;
 
         vm.authenticationError = false;
@@ -20,9 +20,9 @@
         vm.requestResetPassword = requestResetPassword;
         vm.username = null;
         vm.authenticate = authenticate;
-        $timeout(function (){angular.element('#username').focus();});
+        $timeout(function () { angular.element('#username').focus(); });
 
-        function cancel () {
+        function cancel() {
             vm.credentials = {
                 username: null,
                 password: null,
@@ -32,7 +32,7 @@
             $uibModalInstance.dismiss('cancel');
         }
 
-        function login (event) {
+        function login(event) {
             event.preventDefault();
             Auth.login({
                 username: vm.username,
@@ -60,12 +60,12 @@
             });
         }
 
-        function register () {
+        function register() {
             $uibModalInstance.dismiss('cancel');
             $state.go('register');
         }
 
-        function requestResetPassword () {
+        function requestResetPassword() {
             $uibModalInstance.dismiss('cancel');
             $state.go('requestReset');
         }
@@ -73,19 +73,20 @@
         function authenticate(provider) {
             $auth.authenticate(provider)
                 .then(function (response) {
-                    console.log(response);
-                    //toastr.success('You have successfully signed in with ' + provider + '!');
-                    //$location.path('/');
-                })
-                .catch(function (error) {
+                    Auth.authFacebook(response, function (data) {
+                        console.log(data);
+                    }, function (err) {
+                        console.log(data);
+                    });
+                }).catch(function (error) {
                     if (error.message) {
                         // Satellizer promise reject error.
-                        toastr.error(error.message);
+                        console.log(error.message);
                     } else if (error.data) {
                         // HTTP response error from server
-                        toastr.error(error.data.message, error.status);
+                        console.log(error.data.message, error.status);
                     } else {
-                        toastr.error(error);
+                        console.log(error);
                     }
                 });
         }

@@ -5,9 +5,11 @@
         .module('newlotApp')
         .factory('Auth', Auth);
 
-    Auth.$inject = ['$rootScope', '$state', '$sessionStorage', '$q', 'Principal', 'AuthServerProvider', 'Account', 'LoginService', 'Register', 'Activate', 'Password', 'PasswordResetInit', 'PasswordResetFinish'];
+    Auth.$inject = ['$rootScope', '$state', '$sessionStorage', '$q', 'Principal', 'AuthServerProvider', 'Account', 'LoginService',
+        'Register', 'Activate', 'Password', 'PasswordResetInit', 'PasswordResetFinish', 'Social'];
 
-    function Auth($rootScope, $state, $sessionStorage, $q, Principal, AuthServerProvider, Account, LoginService, Register, Activate, Password, PasswordResetInit, PasswordResetFinish) {
+    function Auth($rootScope, $state, $sessionStorage, $q, Principal, AuthServerProvider, Account, LoginService,
+        Register, Activate, Password, PasswordResetInit, PasswordResetFinish, Social) {
         var service = {
             activateAccount: activateAccount,
             authorize: authorize,
@@ -20,7 +22,8 @@
             resetPasswordInit: resetPasswordInit,
             resetPreviousState: resetPreviousState,
             storePreviousState: storePreviousState,
-            updateAccount: updateAccount
+            updateAccount: updateAccount,
+            authFacebook: authFacebook
         };
 
         return service;
@@ -157,6 +160,18 @@
                 function (err) {
                     return cb(err);
                 }.bind(this)).$promise;
+        }
+
+        function authFacebook(accesToken){
+            var cb = callback || angular.noop;
+            Social.save(accesToken, function(user){
+                Auth.identity(true);
+                Principal.authenticate(user);
+                return cb(user);
+            }, function(err){
+                return cb(err);
+            });
+
         }
 
         function getPreviousState() {

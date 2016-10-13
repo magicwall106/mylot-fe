@@ -65,7 +65,12 @@
         }
 
         function authenticate(provider) {
-            $auth.authenticate(provider)
+            $auth.link('facebook')
+                .then(function (response) {
+                    $window.localStorage.currentUser = JSON.stringify(response.data.user);
+                    $rootScope.currentUser = JSON.parse($window.localStorage.currentUser);
+                });
+            /*$auth.authenticate(provider)
                 .then(function () {
                     toastr.success('You have successfully signed in with ' + provider + '!');
                     $location.path('/');
@@ -80,7 +85,7 @@
                     } else {
                         toastr.error(error);
                     }
-                });
+                });*/
         }
     }
 })();
