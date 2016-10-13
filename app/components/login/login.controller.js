@@ -5,9 +5,9 @@
         .module('newlotApp')
         .controller('LoginController', LoginController);
 
-    LoginController.$inject = ['$rootScope', '$state', '$timeout', 'Auth', '$uibModalInstance', '$auth', 'Social'];
+    LoginController.$inject = ['$rootScope', '$state', '$timeout', 'Auth', '$uibModalInstance', /*'$auth',*/ 'Social'];
 
-    function LoginController($rootScope, $state, $timeout, Auth, $uibModalInstance, $auth, Social) {
+    function LoginController($rootScope, $state, $timeout, Auth, $uibModalInstance, /*$auth, */Social) {
         var vm = this;
 
         vm.authenticationError = false;
@@ -70,7 +70,7 @@
             $state.go('requestReset');
         }
 
-        function authenticate(provider) {
+        /*function authenticate(provider) {
             $auth.authenticate(provider)
                 .then(function (response) {
                     Auth.authFacebook(response, function (data) {
@@ -89,6 +89,6 @@
                         console.log(error);
                     }
                 });
-        }
+        }*/
     }
 })();

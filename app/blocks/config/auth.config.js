@@ -1,7 +1,7 @@
 (function () {
     'use strict';
 
-    angular
+    /*angular
         .module('newlotApp')
         .config(authConfig);
 
@@ -22,12 +22,11 @@
             oauthType: '2.0',
             popupOptions: { width: 580, height: 400 }
         });
-        //$authProvider.httpInterceptor = function() { return true; };
+        //$authProvider.tokenHeader = 'Authorization';
+        $authProvider.httpInterceptor = function() { return true; };
         //$authProvider.storageType = 'localStorage';
         //$authProvider.unlinkUrl = '/auth/unlink/';
-        
-
-    }
+    }*/
 
 
 

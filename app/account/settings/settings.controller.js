@@ -5,9 +5,9 @@
         .module('newlotApp')
         .controller('SettingsController', SettingsController);
 
-    SettingsController.$inject = ['Principal', 'Auth', '$filter', '$auth'];
+    SettingsController.$inject = ['Principal', 'Auth', '$filter'];
 
-    function SettingsController(Principal, Auth, $filter, $auth) {
+    function SettingsController(Principal, Auth, $filter) {
         var vm = this;
 
         vm.error = null;
@@ -62,30 +62,6 @@
                 vm.success = null;
                 vm.error = 'ERROR';
             });
-        }
-
-        function authenticate(provider) {
-            $auth.link('facebook')
-                .then(function (response) {
-                    $window.localStorage.currentUser = JSON.stringify(response.data.user);
-                    $rootScope.currentUser = JSON.parse($window.localStorage.currentUser);
-                });
-            /*$auth.authenticate(provider)
-                .then(function () {
-                    toastr.success('You have successfully signed in with ' + provider + '!');
-                    $location.path('/');
-                })
-                .catch(function (error) {
-                    if (error.message) {
-                        // Satellizer promise reject error.
-                        toastr.error(error.message);
-                    } else if (error.data) {
-                        // HTTP response error from server
-                        toastr.error(error.data.message, error.status);
-                    } else {
-                        toastr.error(error);
-                    }
-                });*/
         }
     }
 })();

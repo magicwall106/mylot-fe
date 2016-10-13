@@ -162,7 +162,7 @@
                 }.bind(this)).$promise;
         }
 
-        function authFacebook(accesToken){
+        function authFacebook(accesToken, callback){
             var cb = callback || angular.noop;
             Social.save(accesToken, function(user){
                 Auth.identity(true);
