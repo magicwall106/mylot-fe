@@ -83,10 +83,26 @@
                 // Logged into your app and Facebook.
                 console.log('connected');
                 //Auth.authFacebook(response.authResponse)
-                Auth.authFacebook({access_token: response.authResponse.accessToken})
-                    .then(function(data){
-                        console.log(data);
-                    }).catch(function(err){
+                Auth.authFacebook({ access_token: response.authResponse.accessToken })
+                    .then(function (data) {
+                        //console.log(data);
+                        vm.authenticationError = false;
+                        $uibModalInstance.close();
+                        if ($state.current.name === 'register' || $state.current.name === 'activate' ||
+                            $state.current.name === 'finishReset' || $state.current.name === 'requestReset') {
+                            $state.go('home');
+                        }
+
+                        $rootScope.$broadcast('authenticationSuccess');
+
+                        // previousState was set in the authExpiredInterceptor before being redirected to login modal.
+                        // since login is succesful, go to stored previousState and clear previousState
+                        if (Auth.getPreviousState()) {
+                            var previousState = Auth.getPreviousState();
+                            Auth.resetPreviousState();
+                            $state.go(previousState.name, previousState.params);
+                        }
+                    }).catch(function (err) {
                         console.log(err);
                     });
                 /*FB.api('/me', function (response) {
@@ -102,21 +118,32 @@
                 FB.login(function (response) {
                     if (response.authResponse) {
                         console.log('Welcome!  Fetching your information.... ');
-                        FB.api('/me', function (response) {
-                            console.log('Good to see you, ' + response.name + '.');
-                        });
+                        Auth.authFacebook({ access_token: response.authResponse.accessToken })
+                            .then(function (data) {
+                                //console.log(data);
+                                vm.authenticationError = false;
+                                $uibModalInstance.close();
+                                if ($state.current.name === 'register' || $state.current.name === 'activate' ||
+                                    $state.current.name === 'finishReset' || $state.current.name === 'requestReset') {
+                                    $state.go('home');
+                                }
+
+                                $rootScope.$broadcast('authenticationSuccess');
+
+                                // previousState was set in the authExpiredInterceptor before being redirected to login modal.
+                                // since login is succesful, go to stored previousState and clear previousState
+                                if (Auth.getPreviousState()) {
+                                    var previousState = Auth.getPreviousState();
+                                    Auth.resetPreviousState();
+                                    $state.go(previousState.name, previousState.params);
+                                }
+                            }).catch(function (err) {
+                                console.log(err);
+                            });
                     } else {
                         console.log('User cancelled login or did not fully authorize.');
                     }
                 }, { scope: 'email' });
-
-                Auth.authFacebook({authResponse: response.authResponse})
-                .then(function(response){
-                    
-
-                }).catch(function(err){
-
-                });
             }
         }
 

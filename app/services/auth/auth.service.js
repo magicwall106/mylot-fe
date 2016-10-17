@@ -138,6 +138,9 @@
 
 
         function logout() {
+            FB.getLoginStatus(function (response) {
+                if (response.status === 'connected') { FB.logout(); }
+            });
             AuthServerProvider.logout();
             Principal.authenticate(null);
         }
