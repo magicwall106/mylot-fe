@@ -6,10 +6,10 @@
         .factory('Auth', Auth);
 
     Auth.$inject = ['$rootScope', '$state', '$sessionStorage', '$q', 'Principal', 'AuthServerProvider', 'Account', 'LoginService',
-        'Register', 'Activate', 'Password', 'PasswordResetInit', 'PasswordResetFinish', 'Social'];
+        'Register', 'Activate', 'Password', 'PasswordResetInit', 'PasswordResetFinish', 'AuthSocial'];
 
     function Auth($rootScope, $state, $sessionStorage, $q, Principal, AuthServerProvider, Account, LoginService,
-        Register, Activate, Password, PasswordResetInit, PasswordResetFinish, Social) {
+        Register, Activate, Password, PasswordResetInit, PasswordResetFinish, AuthSocial) {
         var service = {
             activateAccount: activateAccount,
             authorize: authorize,
@@ -27,6 +27,18 @@
         };
 
         return service;
+
+        function authFacebook(key, callback) {
+            var cb = callback || angular.noop;
+            //key.provider = 'facebook'; 
+            return AuthSocial.save(key,
+                function (response) {
+                    return cb(response);
+                },
+                function (err) {
+                    return cb(err);
+                }.bind(this)).$promise;
+        }
 
         function activateAccount(key, callback) {
             var cb = callback || angular.noop;
@@ -160,18 +172,6 @@
                 function (err) {
                     return cb(err);
                 }.bind(this)).$promise;
-        }
-
-        function authFacebook(accesToken, callback){
-            var cb = callback || angular.noop;
-            Social.save(accesToken, function(user){
-                Auth.identity(true);
-                Principal.authenticate(user);
-                return cb(user);
-            }, function(err){
-                return cb(err);
-            });
-
         }
 
         function getPreviousState() {

@@ -1,13 +1,13 @@
-(function() {
+(function () {
     'use strict';
 
     angular
         .module('newlotApp')
         .factory('Principal', Principal);
 
-    Principal.$inject = ['$q', 'Account'];
+    Principal.$inject = ['$q', 'Account', 'AuthSocial'];
 
-    function Principal ($q, Account) {
+    function Principal($q, Account, AuthSocial) {
         var _identity,
             _authenticated = false;
 
@@ -22,12 +22,12 @@
 
         return service;
 
-        function authenticate (identity) {
+        function authenticate(identity) {
             _identity = identity;
             _authenticated = identity !== null;
         }
 
-        function hasAnyAuthority (authorities) {
+        function hasAnyAuthority(authorities) {
             if (!_authenticated || !_identity || !_identity.role) {
                 return false;
             }
@@ -41,19 +41,19 @@
             return false;
         }
 
-        function hasAuthority (authority) {
+        function hasAuthority(authority) {
             if (!_authenticated) {
                 return $q.when(false);
             }
 
-            return this.identity().then(function(_id) {
+            return this.identity().then(function (_id) {
                 return _id.authorities && _id.authorities.indexOf(authority) !== -1;
-            }, function(){
+            }, function () {
                 return false;
             });
         }
 
-        function identity (force) {
+        function identity(force) {
             var deferred = $q.defer();
             if (force === true) {
                 _identity = undefined;
@@ -71,28 +71,36 @@
 
             return deferred.promise;
 
-            function getAccountThen (account) {
-                if(account.status === 203){
-                    getAccountCatch();
-                } else{  
-                    _identity = account.data;
-                    _authenticated = true;
-                }
+            function getAccountThen(account) {
+                _identity = account.data;
+                _authenticated = true;
                 deferred.resolve(_identity);
             }
 
-            function getAccountCatch () {
-                _identity = null;
-                _authenticated = false;
-                deferred.resolve(_identity);
+            function getAccountCatch() {
+                FB.getLoginStatus(function(response){
+                    if(response.status === 'connected'){
+                        AuthSocial.save({access_token: response.authResponse.accessToken},
+                            function (response) {
+                                _identity = response;
+                                _authenticated = true;
+                                deferred.resolve(_identity);
+                            });
+                    } else {
+                        _identity = null;
+                        _authenticated = false;
+                        deferred.resolve(_identity);
+                    }
+                });
+                
             }
         }
 
-        function isAuthenticated () {
+        function isAuthenticated() {
             return _authenticated;
         }
 
-        function isIdentityResolved () {
+        function isIdentityResolved() {
             return angular.isDefined(_identity);
         }
     }

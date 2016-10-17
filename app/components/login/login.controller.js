@@ -5,9 +5,9 @@
         .module('newlotApp')
         .controller('LoginController', LoginController);
 
-    LoginController.$inject = ['$rootScope', '$state', '$timeout', 'Auth', '$uibModalInstance', /*'$auth',*/ 'Social'];
+    LoginController.$inject = ['$rootScope', '$state', '$timeout', 'Auth', '$uibModalInstance'];
 
-    function LoginController($rootScope, $state, $timeout, Auth, $uibModalInstance, /*$auth, */Social) {
+    function LoginController($rootScope, $state, $timeout, Auth, $uibModalInstance) {
         var vm = this;
 
         vm.authenticationError = false;
@@ -19,7 +19,10 @@
         vm.rememberMe = true;
         vm.requestResetPassword = requestResetPassword;
         vm.username = null;
-        vm.authenticate = authenticate;
+
+        vm.loginFacebook = loginFacebook;
+        vm.socialStatus = socialStatus;
+
         $timeout(function () { angular.element('#username').focus(); });
 
         function cancel() {
@@ -70,25 +73,66 @@
             $state.go('requestReset');
         }
 
-        /*function authenticate(provider) {
-            $auth.authenticate(provider)
-                .then(function (response) {
-                    Auth.authFacebook(response, function (data) {
+        function statusChangeCallback(response) {
+            console.log('statusChangeCallback');
+            console.log(response);
+            // The response object is returned with a status field that lets the
+            // app know the current login status of the person.
+            // Full docs on the response object can be found in the documentation
+            if (response.status === 'connected') {
+                // Logged into your app and Facebook.
+                console.log('connected');
+                //Auth.authFacebook(response.authResponse)
+                Auth.authFacebook({access_token: response.authResponse.accessToken})
+                    .then(function(data){
                         console.log(data);
-                    }, function (err) {
-                        console.log(data);
+                    }).catch(function(err){
+                        console.log(err);
                     });
-                }).catch(function (error) {
-                    if (error.message) {
-                        // Satellizer promise reject error.
-                        console.log(error.message);
-                    } else if (error.data) {
-                        // HTTP response error from server
-                        console.log(error.data.message, error.status);
+                /*FB.api('/me', function (response) {
+                    console.log('Good to see you, ' + response.name + '.');
+                    
+                });*/
+            } else if (response.status === 'not_authorized') {
+                // The person is logged into Facebook, but not your app.
+                console.log('not_authorized');
+            } else {
+                // The person is not logged into Facebook, so we're not sure if
+                // they are logged into this app or not.
+                FB.login(function (response) {
+                    if (response.authResponse) {
+                        console.log('Welcome!  Fetching your information.... ');
+                        FB.api('/me', function (response) {
+                            console.log('Good to see you, ' + response.name + '.');
+                        });
                     } else {
-                        console.log(error);
+                        console.log('User cancelled login or did not fully authorize.');
                     }
+                }, { scope: 'email' });
+
+                Auth.authFacebook({authResponse: response.authResponse})
+                .then(function(response){
+                    
+
+                }).catch(function(err){
+
                 });
-        }*/
+            }
+        }
+
+        // This function is called when someone finishes with the Login
+        // Button.  See the onlogin handler attached to it in the sample
+        // code below.
+        function socialStatus() {
+            FB.getLoginStatus(function (response) {
+                return response.status === 'connected';
+            });
+        }
+
+        function loginFacebook() {
+            FB.getLoginStatus(function (response) {
+                statusChangeCallback(response);
+            });
+        };
     }
 })();

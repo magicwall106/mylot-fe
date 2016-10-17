@@ -14,7 +14,7 @@
         //$httpProvider.defaults.xsrfHeaderName = 'X-CSRF-TOKEN';
         $httpProvider.defaults.withCredentials = true;
         //delete $httpProvider.defaults.headers.common['X-Requested-With'];
-        $httpProvider.defaults.headers.common['Access-Control-Allow-Headers'] = '*';
+        //$httpProvider.defaults.headers.common['Access-Control-Allow-Headers'] = '*';
         //Cache everything except rest api requests
         httpRequestInterceptorCacheBusterProvider.setMatchlist([ /.*protected.*/], true);
 
