@@ -13,7 +13,7 @@
         vm.totalItems = 64;
         vm.currentPage = 4;
         vm.account = null;
-        vm.isAuthenticated = null;
+        vm.isAuthenticated = Principal.isAuthenticated();
         vm.login = LoginService.open;
         vm.register = register;
         vm.pageChanged = pageChanged;
@@ -45,7 +45,7 @@
             alert(event);
         }
         function getProcessValue(){
-            let now = new Date();
+            var now = new Date();
             return now.getTime()/vm.endTime*100;
         }
     }

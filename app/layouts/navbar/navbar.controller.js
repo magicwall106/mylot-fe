@@ -5,20 +5,20 @@
         .module('newlotApp')
         .controller('NavbarController', NavbarController);
 
-    NavbarController.$inject = ['$state', 'Auth', 'LoginService'];
+    NavbarController.$inject = ['$state', 'Auth', 'LoginService', 'Principal'];
 
-    function NavbarController ($state, Auth, LoginService) {
+    function NavbarController ($state, Auth, LoginService, Principal) {
         var vm = this;
 
         vm.isNavbarCollapsed = true;
-        vm.isAuthenticated = true; 
+        vm.isAuthenticated = Principal.isAuthenticated; 
 
 
         vm.login = login;
         vm.logout = logout;
         vm.toggleNavbar = toggleNavbar;
         vm.collapseNavbar = collapseNavbar;
-        vm.$state = $state;
+        vm.$state = $state; 
 
         function login() {
             collapseNavbar();

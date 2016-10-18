@@ -1,82 +1,96 @@
 <div ng-cloak>
-    <div class="row">
-        <div class="col-md-2">
-            <uib-tabset active="active">
-                <uib-tab index="$index + 1" ng-repeat="tab in vm.tabs" heading="{{tab.title}}" disable="tab.disabled">
-                    <uib-tab-heading>
-                        <i class="{{tab.icon}}"></i>
-                    </uib-tab-heading>
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th>Số</th>
-                                <th>%</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr ng-repeat="line in tab.content">
-                                <td>{{line.num}}</td>
-                                <td>{{line.rate}}</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </uib-tab>
-            </uib-tabset>
-        </div>
-        <div class="col-md-10">
-            <div>
-                <p>Kỳ #00028</p>
-                <p>Thứ 4 21/09/2016</p>
-                <h3>13 33 22 44 55 66</h3>
-                <p>Giải 1: 2 | Giải 2: 2 | Giải 3: 2 | Giải 4: 2 </p>
-                <pre>You are currently on page {{vm.currentPage}}</pre>
-                <ul uib-pager total-items="vm.totalItems" ng-model="vm.currentPage" next-text="Next" previous-text="Previous" ng-change="vm.pageChanged(vm.currentPage)"></ul>
-            </div>
+	<div class="row">
+		<div class="col-md-2">
+			<uib-tabset active="active">
+				<uib-tab index="$index + 1" ng-repeat="tab in vm.tabs" heading="{{tab.title}}" disable="tab.disabled">
+					<uib-tab-heading>
+						<i class="{{tab.icon}}"></i>
+					</uib-tab-heading>
+					<table class="table">
+						<thead>
+							<tr>
+								<th>Số</th>
+								<th>%</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr ng-repeat="line in tab.content">
+								<td>{{line.num}}</td>
+								<td>{{line.rate}}</td>
+							</tr>
+						</tbody>
+					</table>
+				</uib-tab>
+			</uib-tabset>
+		</div>
+		<div class="col-md-10">
+			<div ng-switch="vm.isAuthenticated()">
+				<div class="alert alert-success" ng-switch-when="true">
+					You are logged in as user "{{vm.account.email}}".
+				</div>
 
-            <hr>
-            <p>Giá trị Jackbot Mega 6/45 ước tính</p>
-            <h4>13,232,222,111</h4>
-            <hr>
-            <p>Lần quay số tiếp theo còn </p>
-            <div>
-                <timer end-time="vm.endTime">{{days}} days, {{hours}} hours, {{minutes}} minutes, {{seconds}} seconds.
-                    <uib-progressbar class="progress progress-striped active" type="info" value="vm.processValue()">
-                    </uib-progressbar>
-                </timer>
-            </div>
+				<div class="alert alert-warning" ng-switch-when="false">
+					If you want to <a class="alert-link" href="" ng-click="vm.login()">sign in</a>, you can try the default accounts:<br/>-
+					Administrator (login="admin" and password="admin") <br/>- User (login="user" and password="user").
+				</div>
 
-            <h5>thứ 4 ngày 02/10/2016</h5>
-            <h3>2d 13h 02p </h3>
-            <hr>
-            <div>
-                <form>
-                    <div class="form-group row">
-                        <div class="col-sm-1">
-                            <input type="number" min="0" max="45" class="form-control" name="num1">
-                        </div>
-                        <div class="col-sm-1">
-                            <input type="number" min="0" max="45" class="form-control" name="num2">
-                        </div>
-                        <div class="col-sm-1">
-                            <input type="number" min="0" max="45" class="form-control" name="num3">
-                        </div>
-                        <div class="col-sm-1">
-                            <input type="number" min="0" max="45" class="form-control" name="num4">
-                        </div>
-                        <div class="col-sm-1">
-                            <input type="number" min="0" max="45" class="form-control" name="num5">
-                        </div>
-                        <div class="col-sm-1">
-                            <input type="number" min="0" max="45" class="form-control" name="num6">
-                        </div>
-                        <button class="col-sm-2 btn btn-info"><i class="glyphicon glyphicon-eye-open"></i>Gợi ý</button>
-                    </div>
-                    <div class="form-group row">
-                        <button class="col-sm-2 btn btn-primary" href="/signup"><i class="glyphicon glyphicon-shopping-cart"></i>Đặt vé</button>
-                    </div>
-                </form>
-            </div>
-            <!--<h1>Welcome, Java Hipster!</h1>
+				<div class="alert alert-warning" ng-switch-when="false">
+					You don't have an account yet? <a class="alert-link" ui-sref="register">Register a new account</a>
+				</div>
+			</div>
+			<div>
+				<p>Kỳ #00028</p>
+				<p>Thứ 4 21/09/2016</p>
+				<h3>13 33 22 44 55 66</h3>
+				<p>Giải 1: 2 | Giải 2: 2 | Giải 3: 2 | Giải 4: 2 </p>
+				<pre>You are currently on page {{vm.currentPage}}</pre>
+				<ul uib-pager total-items="vm.totalItems" ng-model="vm.currentPage" next-text="Next" previous-text="Previous" ng-change="vm.pageChanged(vm.currentPage)"></ul>
+			</div>
+
+			<hr>
+			<p>Giá trị Jackbot Mega 6/45 ước tính</p>
+			<h4>13,232,222,111</h4>
+			<hr>
+			<p>Lần quay số tiếp theo còn </p>
+			<div>
+				<timer end-time="vm.endTime">{{days}} days, {{hours}} hours, {{minutes}} minutes, {{seconds}} seconds.
+					<uib-progressbar class="progress progress-striped active" type="info" value="vm.processValue()">
+					</uib-progressbar>
+				</timer>
+			</div>
+
+			<h5>thứ 4 ngày 02/10/2016</h5>
+			<h3>2d 13h 02p </h3>
+			<hr>
+			<div>
+				<form>
+					<div class="form-group row">
+						<div class="col-sm-1">
+							<input type="number" min="0" max="45" class="form-control" name="num1">
+						</div>
+						<div class="col-sm-1">
+							<input type="number" min="0" max="45" class="form-control" name="num2">
+						</div>
+						<div class="col-sm-1">
+							<input type="number" min="0" max="45" class="form-control" name="num3">
+						</div>
+						<div class="col-sm-1">
+							<input type="number" min="0" max="45" class="form-control" name="num4">
+						</div>
+						<div class="col-sm-1">
+							<input type="number" min="0" max="45" class="form-control" name="num5">
+						</div>
+						<div class="col-sm-1">
+							<input type="number" min="0" max="45" class="form-control" name="num6">
+						</div>
+						<button class="col-sm-2 btn btn-info"><i class="glyphicon glyphicon-eye-open"></i>Gợi ý</button>
+					</div>
+					<div class="form-group row">
+						<button class="col-sm-2 btn btn-primary" href="/signup"><i class="glyphicon glyphicon-shopping-cart"></i>Đặt vé</button>
+					</div>
+				</form>
+			</div>
+			<!--<h1>Welcome, Java Hipster!</h1>
             <p class="lead">This is your homepage</p>
 
             <div ng-switch="vm.isAuthenticated()">
@@ -111,6 +125,6 @@
                 <span>If you like JHipster, don't forget to give us a star on </span>&nbsp;<a href="https://github.com/jhipster/generator-jhipster"
                     target="_blank">Github</a>!
             </p>-->
-        </div>
-    </div>
+		</div>
+	</div>
 </div>

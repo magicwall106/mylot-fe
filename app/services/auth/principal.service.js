@@ -78,20 +78,9 @@
             }
 
             function getAccountCatch() {
-                FB.getLoginStatus(function(response){
-                    if(response.status === 'connected'){
-                        AuthSocial.save({access_token: response.authResponse.accessToken},
-                            function (response) {
-                                _identity = response;
-                                _authenticated = true;
-                                deferred.resolve(_identity);
-                            });
-                    } else {
-                        _identity = null;
-                        _authenticated = false;
-                        deferred.resolve(_identity);
-                    }
-                });
+                _identity = null;
+                _authenticated = false;
+                deferred.resolve(_identity);
                 
             }
         }

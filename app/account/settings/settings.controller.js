@@ -14,7 +14,7 @@
         vm.save = save;
         vm.settingsAccount = null;
         vm.success = null;
-        vm.authenticate = authenticate;
+        vm.authenticate = Principal.authenticate;
 
         vm.popup1 = {
             opened: false

@@ -30,12 +30,17 @@
 
         function authFacebook(key, callback) {
             var cb = callback || angular.noop;
-            //key.provider = 'facebook'; 
+            var deferred = $q.defer();
             return AuthSocial.save(key,
                 function (response) {
-                    return cb(response);
+                    Principal.identity(true).then(function (response) {
+                        deferred.resolve(response);
+                    });
+                    return cb();
                 },
                 function (err) {
+                    this.logout();
+                    deferred.reject(err);
                     return cb(err);
                 }.bind(this)).$promise;
         }
@@ -93,7 +98,7 @@
 
         function changePassword(newPassword, confirmPassword, callback) {
             var cb = callback || angular.noop;
-            const param = { newPassword: newPassword, confirmPassword: confirmPassword };
+            var param = { newPassword: newPassword, confirmPassword: confirmPassword };
             return Password.save(param, function () {
                 return cb();
             }, function (err) {
