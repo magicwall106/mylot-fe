@@ -1,0 +1,21 @@
+<uib-tabset active="active">
+	<uib-tab heading="Best">
+		<uib-tab-heading>
+			<i class="glyphicon glyphicon-thumbs-up"></i>
+		</uib-tab-heading>
+		<table class="table">
+			<thead>
+				<tr>
+					<th>Số</th>
+					<th>%</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="line in $ctrl.rates">
+					<td>{{line.num}}</td>
+					<td>{{line.rate}}</td>
+				</tr>
+			</tbody>
+		</table>
+	</uib-tab>
+</uib-tabset>
