@@ -61,10 +61,18 @@
                 </li>
                 <li ng-class="{active: vm.$state.includes('account')}" uib-dropdown class="dropdown pointer">
                     <a class="dropdown-toggle" uib-dropdown-toggle href="" id="account-menu">
-                        <span>
+                        <span ng-switch-when="false">
                             <span class="glyphicon glyphicon-user"></span>
                             <span class="hidden-sm">
                                 Account
+                            </span>
+                            <b class="caret"></b>
+                        </span>
+                        <span ng-switch-when="true">
+                            <img ng-if="vm.account.profile.picture" ng-src="{{vm.account.profile.picture}}"
+                             style="width: 18px">
+                            <span class="hidden-sm">
+                                {{vm.account.profile.name || vm.account.profile.firstname + vm.account.profile.lastname}}
                             </span>
                             <b class="caret"></b>
                         </span>
@@ -108,7 +116,7 @@
                         </li>
                     </ul>
                 </li>
-                <li ng-class="{active: vm.$state.includes('admin')}"  ng-switch-when="true" has-authority="ROLE_ADMIN" uib-dropdown class="dropdown pointer">
+                <li ng-class="{active: vm.$state.includes('admin')}"  ng-switch-when="true" has-authority="admin" uib-dropdown class="dropdown pointer">
                     <a class="dropdown-toggle" uib-dropdown-toggle href="" id="admin-menu">
                         <span>
                             <span class="glyphicon glyphicon-tower"></span>

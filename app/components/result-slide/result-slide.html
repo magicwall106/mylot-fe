@@ -1,11 +1,11 @@
 <div>
 	<p>Kỳ {{$ctrl.result.code}}</p>
-	<p>{{$ctrl.result.resultDate}}</p>
+	<p>{{$ctrl.result.resultDate | date:'dd-MM-yyyy'}}</p>
 	<h3>
-		<ng-repeat ng-repeat="(k,v) in $ctrl.result.nums">{{k}}:{{v}} </ng-repeat>
+		<ng-repeat ng-repeat="item in $ctrl.result.nums">Num {{$index}}: {{item.num}}|{{item.rate}} </ng-repeat>
 	</h3>
 	<h3>
-		<ng-repeat ng-repeat="(k,v) in $ctrl.result.awards">{{k}}:{{v}} </ng-repeat>
+		<ng-repeat ng-repeat="(k,v) in $ctrl.result.awards">{{k}}: {{v}} </ng-repeat>
 	</h3>
 	<pre>You are currently on page {{$ctrl.currentPage + 1}}</pre>
 	<ul class="pager">

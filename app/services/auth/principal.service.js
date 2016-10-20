@@ -47,7 +47,7 @@
             }
 
             return this.identity().then(function (_id) {
-                return _id.authorities && _id.authorities.indexOf(authority) !== -1;
+                return _id.role && _id.role.indexOf(authority) !== -1;
             }, function () {
                 return false;
             });

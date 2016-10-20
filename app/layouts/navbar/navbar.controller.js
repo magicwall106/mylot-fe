@@ -5,20 +5,34 @@
         .module('newlotApp')
         .controller('NavbarController', NavbarController);
 
-    NavbarController.$inject = ['$state', 'Auth', 'LoginService', 'Principal'];
+    NavbarController.$inject = ['$state', 'Auth', 'LoginService', 'Principal', '$scope', 'Flash'];
 
-    function NavbarController ($state, Auth, LoginService, Principal) {
+    function NavbarController ($state, Auth, LoginService, Principal, $scope, Flash) {
         var vm = this;
 
         vm.isNavbarCollapsed = true;
-        vm.isAuthenticated = Principal.isAuthenticated; 
-
+        vm.isAuthenticated = Principal.isAuthenticated;
+        vm.account = null;
 
         vm.login = login;
         vm.logout = logout;
         vm.toggleNavbar = toggleNavbar;
         vm.collapseNavbar = collapseNavbar;
-        vm.$state = $state; 
+        vm.$state = $state;
+
+        $scope.$on('authenticationSuccess', function () {
+            //getAccount();
+            Flash.create('success', "Login successed");
+        });
+
+        getAccount();
+
+        function getAccount() {
+            Principal.identity().then(function (account) {
+                vm.account = account;
+                vm.isAuthenticated = Principal.isAuthenticated;
+            });
+        }
 
         function login() {
             collapseNavbar();
