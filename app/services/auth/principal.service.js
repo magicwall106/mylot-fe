@@ -1,13 +1,13 @@
-(function() {
+(function () {
     'use strict';
 
     angular
         .module('newlotApp')
         .factory('Principal', Principal);
 
-    Principal.$inject = ['$q', 'Account'];
+    Principal.$inject = ['$q', 'Account', 'AuthSocial'];
 
-    function Principal ($q, Account) {
+    function Principal($q, Account, AuthSocial) {
         var _identity,
             _authenticated = false;
 
@@ -22,18 +22,18 @@
 
         return service;
 
-        function authenticate (identity) {
+        function authenticate(identity) {
             _identity = identity;
             _authenticated = identity !== null;
         }
 
-        function hasAnyAuthority (authorities) {
-            if (!_authenticated || !_identity || !_identity.authorities) {
+        function hasAnyAuthority(authorities) {
+            if (!_authenticated || !_identity || !_identity.role) {
                 return false;
             }
 
             for (var i = 0; i < authorities.length; i++) {
-                if (_identity.authorities.indexOf(authorities[i]) !== -1) {
+                if (_identity.role.indexOf(authorities[i]) !== -1) {
                     return true;
                 }
             }
@@ -41,25 +41,23 @@
             return false;
         }
 
-        function hasAuthority (authority) {
+        function hasAuthority(authority) {
             if (!_authenticated) {
                 return $q.when(false);
             }
 
-            return this.identity().then(function(_id) {
-                return _id.authorities && _id.authorities.indexOf(authority) !== -1;
-            }, function(){
+            return this.identity().then(function (_id) {
+                return _id.role && _id.role.indexOf(authority) !== -1;
+            }, function () {
                 return false;
             });
         }
 
-        function identity (force) {
+        function identity(force) {
             var deferred = $q.defer();
-
             if (force === true) {
                 _identity = undefined;
             }
-
             // check and see if we have retrieved the identity data from the server.
             // if we have, reuse it by immediately resolving
             if (angular.isDefined(_identity)) {
@@ -67,32 +65,31 @@
 
                 return deferred.promise;
             }
-
-            // retrieve the identity data from the server, update the identity object, and then resolve.
             Account.get().$promise
                 .then(getAccountThen)
                 .catch(getAccountCatch);
 
             return deferred.promise;
 
-            function getAccountThen (account) {
+            function getAccountThen(account) {
                 _identity = account.data;
                 _authenticated = true;
                 deferred.resolve(_identity);
             }
 
-            function getAccountCatch () {
+            function getAccountCatch() {
                 _identity = null;
                 _authenticated = false;
                 deferred.resolve(_identity);
+                
             }
         }
 
-        function isAuthenticated () {
+        function isAuthenticated() {
             return _authenticated;
         }
 
-        function isIdentityResolved () {
+        function isIdentityResolved() {
             return angular.isDefined(_identity);
         }
     }

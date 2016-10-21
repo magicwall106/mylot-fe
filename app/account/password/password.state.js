@@ -12,7 +12,7 @@
             parent: 'account',
             url: '/password',
             data: {
-                authorities: ['ROLE_USER'],
+                authorities: ['user'],
                 pageTitle: 'Password'
             },
             views: {

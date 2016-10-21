@@ -13,7 +13,7 @@
             parent: 'entity',
             url: '/lottery',
             data: {
-                authorities: ['ROLE_USER'],
+                authorities: ['user'],
                 pageTitle: 'Lotteries'
             },
             views: {
@@ -30,7 +30,7 @@
             parent: 'entity',
             url: '/lottery/{id}',
             data: {
-                authorities: ['ROLE_USER'],
+                authorities: ['user'],
                 pageTitle: 'Lottery'
             },
             views: {
@@ -58,7 +58,7 @@
             parent: 'lottery-detail',
             url: '/detail/edit',
             data: {
-                authorities: ['ROLE_USER']
+                authorities: ['user']
             },
             onEnter: ['$stateParams', '$state', '$uibModal', function($stateParams, $state, $uibModal) {
                 $uibModal.open({
@@ -83,7 +83,7 @@
             parent: 'lottery',
             url: '/new',
             data: {
-                authorities: ['ROLE_USER']
+                authorities: ['user']
             },
             onEnter: ['$stateParams', '$state', '$uibModal', function($stateParams, $state, $uibModal) {
                 $uibModal.open({
@@ -119,7 +119,7 @@
             parent: 'lottery',
             url: '/{id}/edit',
             data: {
-                authorities: ['ROLE_USER']
+                authorities: ['user']
             },
             onEnter: ['$stateParams', '$state', '$uibModal', function($stateParams, $state, $uibModal) {
                 $uibModal.open({
@@ -144,7 +144,7 @@
             parent: 'lottery',
             url: '/{id}/delete',
             data: {
-                authorities: ['ROLE_USER']
+                authorities: ['user']
             },
             onEnter: ['$stateParams', '$state', '$uibModal', function($stateParams, $state, $uibModal) {
                 $uibModal.open({

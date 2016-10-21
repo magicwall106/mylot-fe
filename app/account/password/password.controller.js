@@ -26,7 +26,7 @@
                 vm.doNotMatch = 'ERROR';
             } else {
                 vm.doNotMatch = null;
-                Auth.changePassword(vm.password).then(function () {
+                Auth.changePassword(vm.password, vm.confirmPassword).then(function () {
                     vm.error = null;
                     vm.success = 'OK';
                 }).catch(function () {

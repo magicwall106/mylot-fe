@@ -5,9 +5,9 @@
         .module('newlotApp')
         .factory('Register', Register);
 
-    Register.$inject = ['$resource'];
+    Register.$inject = ['$resource', 'SERVER_BACKEND'];
 
-    function Register ($resource) {
-        return $resource('api/register', {}, {});
+    function Register ($resource, SERVER_BACKEND) {
+        return $resource(SERVER_BACKEND + 'api/signup', {}, {});
     }
 })();

@@ -5,9 +5,9 @@
         .module('newlotApp')
         .factory('AuthServerProvider', AuthServerProvider);
 
-    AuthServerProvider.$inject = ['$http', '$localStorage' ];
+    AuthServerProvider.$inject = ['$http', '$localStorage', 'SERVER_BACKEND' ];
 
-    function AuthServerProvider ($http, $localStorage ) {
+    function AuthServerProvider ($http, $localStorage, SERVER_BACKEND ) {
         var service = {
             getToken: getToken,
             hasValidToken: hasValidToken,
@@ -31,23 +31,23 @@
             var data = 'email=' + encodeURIComponent(credentials.username) +
                 '&password=' + encodeURIComponent(credentials.password);
 
-            return $http.post('http://mylot-expressapp.rhcloud.com/api/login', data, {
+            return $http.post(SERVER_BACKEND + 'api/login', data, {
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded'
                 }
-            }).success(function (response) {
+            }).success(function (response, status, headers, config) {
                 return response;
+            }).error(function (data, status, header, config) {
+                return data;
             });
         }
 
-        function logout () {
-
-            
+        function logout () {   
             // logout from the server
-            $http.post('api/logout').success(function (response) {
+            $http.get(SERVER_BACKEND + 'api/logout').success(function (response) {
                 delete $localStorage.authenticationToken;
                 // to get a new csrf token call the api
-                $http.get('api/account');
+                $http.get(SERVER_BACKEND + 'api/account/profile');
                 return response;
             });
             

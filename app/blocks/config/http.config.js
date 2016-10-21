@@ -8,11 +8,13 @@
     httpConfig.$inject = ['$urlRouterProvider', '$httpProvider', 'httpRequestInterceptorCacheBusterProvider', '$urlMatcherFactoryProvider'];
 
     function httpConfig($urlRouterProvider, $httpProvider, httpRequestInterceptorCacheBusterProvider, $urlMatcherFactoryProvider) {
-        
+
         //enable CSRF
-        $httpProvider.defaults.xsrfCookieName = 'CSRF-TOKEN';
-        $httpProvider.defaults.xsrfHeaderName = 'X-CSRF-TOKEN';
-        
+        //$httpProvider.defaults.xsrfCookieName = 'CSRF-TOKEN';
+        //$httpProvider.defaults.xsrfHeaderName = 'X-CSRF-TOKEN';
+        $httpProvider.defaults.withCredentials = true;
+        //delete $httpProvider.defaults.headers.common['X-Requested-With'];
+        //$httpProvider.defaults.headers.common['Access-Control-Allow-Headers'] = '*';
         //Cache everything except rest api requests
         httpRequestInterceptorCacheBusterProvider.setMatchlist([ /.*protected.*/], true);
 
@@ -21,7 +23,7 @@
         $httpProvider.interceptors.push('errorHandlerInterceptor');
         $httpProvider.interceptors.push('authExpiredInterceptor');
         $httpProvider.interceptors.push('notificationInterceptor');
-        // jhipster-needle-angularjs-add-interceptor JHipster will add new application http interceptor here
+        //$httpProvider.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
 
         $urlMatcherFactoryProvider.type('boolean', {
             name : 'boolean',

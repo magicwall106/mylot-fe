@@ -13,7 +13,7 @@
             parent: 'entity',
             url: '/result-vietlot?page&sort&search',
             data: {
-                authorities: ['ROLE_USER'],
+                authorities: ['user'],
                 pageTitle: 'ResultVietlots'
             },
             views: {
@@ -50,7 +50,7 @@
             parent: 'entity',
             url: '/result-vietlot/{id}',
             data: {
-                authorities: ['ROLE_USER'],
+                authorities: ['user'],
                 pageTitle: 'ResultVietlot'
             },
             views: {
@@ -78,7 +78,7 @@
             parent: 'result-vietlot-detail',
             url: '/detail/edit',
             data: {
-                authorities: ['ROLE_USER']
+                authorities: ['user']
             },
             onEnter: ['$stateParams', '$state', '$uibModal', function($stateParams, $state, $uibModal) {
                 $uibModal.open({
@@ -103,7 +103,7 @@
             parent: 'result-vietlot',
             url: '/new',
             data: {
-                authorities: ['ROLE_USER']
+                authorities: ['user']
             },
             onEnter: ['$stateParams', '$state', '$uibModal', function($stateParams, $state, $uibModal) {
                 $uibModal.open({
@@ -144,7 +144,7 @@
             parent: 'result-vietlot',
             url: '/{id}/edit',
             data: {
-                authorities: ['ROLE_USER']
+                authorities: ['user']
             },
             onEnter: ['$stateParams', '$state', '$uibModal', function($stateParams, $state, $uibModal) {
                 $uibModal.open({
@@ -169,7 +169,7 @@
             parent: 'result-vietlot',
             url: '/{id}/delete',
             data: {
-                authorities: ['ROLE_USER']
+                authorities: ['user']
             },
             onEnter: ['$stateParams', '$state', '$uibModal', function($stateParams, $state, $uibModal) {
                 $uibModal.open({

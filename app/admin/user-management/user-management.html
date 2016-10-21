@@ -35,7 +35,7 @@
                 </td>
                 
                 <td>
-                    <div ng-repeat="authority in user.authorities">
+                    <div ng-repeat="authority in user.role">
                         <span class="label label-info">{{ authority }}</span>
                     </div>
                 </td>
@@ -58,7 +58,7 @@
                         </button>
                         <button type="submit"
                                 ui-sref="user-management.delete({login:user.login})"
-                                class="btn btn-danger btn-sm" ng-disabled="vm.currentAccount.login==user.login">
+                                class="btn btn-danger btn-sm" ng-disabled="vm.currentAccount.email==user.email">
                             <span class="glyphicon glyphicon-remove-circle"></span>
                             <span class="hidden-xs hidden-sm"></span>
                         </button>
