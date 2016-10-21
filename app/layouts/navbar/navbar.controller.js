@@ -5,9 +5,9 @@
         .module('newlotApp')
         .controller('NavbarController', NavbarController);
 
-    NavbarController.$inject = ['$state', 'Auth', 'LoginService', 'Principal', '$scope', 'Flash'];
+    NavbarController.$inject = ['$state', 'Auth', 'LoginService', 'Principal', '$scope'];
 
-    function NavbarController ($state, Auth, LoginService, Principal, $scope, Flash) {
+    function NavbarController ($state, Auth, LoginService, Principal, $scope) {
         var vm = this;
 
         vm.isNavbarCollapsed = true;
@@ -21,8 +21,7 @@
         vm.$state = $state;
 
         $scope.$on('authenticationSuccess', function () {
-            //getAccount();
-            Flash.create('success', "Login successed");
+            getAccount();
         });
 
         getAccount();

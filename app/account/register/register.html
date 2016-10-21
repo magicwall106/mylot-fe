@@ -93,9 +93,12 @@
         </div>
         <div class="col-md-4">
             <br/>
-            <jh-social ng-provider="google"></jh-social>
-            <jh-social ng-provider="facebook"></jh-social>
-            <jh-social ng-provider="twitter"></jh-social>
+            <button type="submit" class="btn btn-block jh-btn-social jh-btn-facebook" ng-click="vm.loginFacebook()">
+                <span>Sign in with Facebook</span>
+            </button>
+            <button type="submit" class="btn btn-block jh-btn-social jh-btn-google" ng-click="vm.loginFacebook()">
+                <span>Sign in with Google</span>
+            </button>
             <!-- jhipster-needle-add-social-button -->
         </div>
     </div>

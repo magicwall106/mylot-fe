@@ -15,7 +15,7 @@
         vm.settingsAccount = null;
         vm.success = null;
         vm.authenticate = Principal.authenticate;
-
+        vm.altInputFormats = ['M!/d!/yyyy'];
         vm.popup1 = {
             opened: false
         };
@@ -38,9 +38,12 @@
                 activated: account.activated,
                 email: account.email,
                 profile: {
+                    name: account.profile.name,
                     firstname: account.profile.firstname,
                     lastname: account.profile.lastname,
-                    dob: $filter('date')(account.profile.dob, "dd-MM-yyyy")
+                    dob: account.profile.dob,//$filter('date')(account.profile.dob, "dd-MM-yyyy")
+                    picture: account.profile.picture,
+                    gender: account.profile.gender
                 },
                 google: account.google || '',
                 facebook: account.facebook || ''
