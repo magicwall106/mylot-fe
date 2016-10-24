@@ -10,12 +10,12 @@
         .module('newlotApp')
         .component('orderTicket', orderTicket);
 
-    orderTicketController.$inject = ['Result'];
+    orderTicketController.$inject = ['Result', 'Lottery'];
 
-    function orderTicketController(Result) {
+    function orderTicketController(Result, Lottery) {
         var vm = this;
         vm.lotteries = new Array(1);
-        vm.conditionEnum = [ 'Best', 'Worst', 'Emotion' ]
+        vm.conditionEnum = ['Best', 'Worst', 'Emotion']
         vm.submitForm = submitForm;
         vm.randomTicket = randomTicket;
         vm.addTicket = addTicket;
@@ -26,8 +26,8 @@
         vm.currentLots = 100;
         vm.progressValue = 0;
 
-        _getResultByPage({latest: true});
-        
+        _getResultByPage({ latest: true });
+
         function _getResultByPage(pageJson) {
             Result.get(pageJson, function (response) {
                 if (response.docs && response.docs.length > 0) {
@@ -42,27 +42,33 @@
             });
         }
 
-        function removeTicket(index){
-            if(index < vm.lotteries.length && vm.lotteries.length > 1){
-               vm.lotteries.splice(index,1); 
+        function removeTicket(index) {
+            if (index < vm.lotteries.length && vm.lotteries.length > 1) {
+                vm.lotteries.splice(index, 1);
             }
         }
 
-        function addTicket(){
+        function addTicket() {
             vm.lotteries.push({});
         }
 
-        function submitForm(){
-            for(var item in vm.lotteries){
+        function submitForm() {
+            for (var item in vm.lotteries) {
                 vm.lotteries[item]["result"] = vm.resultId;
             }
             var form = vm.lotteries;
+            Lottery.save({ form: form },
+                function (response) {
+                    var res = response;
+                }, function (err) {
+                    var error = err;
+                });
 
         }
 
-        function randomTicket(){
+        function randomTicket() {
 
         }
-        
+
     }
 })();
